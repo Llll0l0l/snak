@@ -17,7 +17,6 @@ def game():
     score = Score()
 
 
-
     screen.listen()
     screen.onkey(snake.up, "Up")
     screen.onkey(snake.down, "Down")
@@ -35,13 +34,15 @@ def game():
         if snake.segments[0].distance(food) < 15:
             food.random_locate()
             snake.add_turtle()
-            score.score_update()
+            score.increase_score()
 
         
         # detect collision with wall
         if snake.segments[0].xcor()>=300 or snake.segments[0].xcor()<=-300 or snake.segments[0].ycor()>=300 or snake.segments[0].ycor()<=-300:
-            game_is_on = False
-            score.game_over()
+            # game_is_on = False
+            # score.game_over()
+            score.reset()
+            snake.reset()
 
         
 
@@ -49,9 +50,10 @@ def game():
         for s in snake.segments[1:]:
             
             if snake.segments[0].distance(s)<=10:
-                game_is_on = False
-                score.game_over()
-
+                # game_is_on = False
+                # score.game_over()
+                score.reset()
+                snake.reset()
             
 
     screen.exitonclick()
